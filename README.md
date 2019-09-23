@@ -1,4 +1,4 @@
-# Page Locker
+# Modal
 
 [Live Demo](https://delete-agency.github.io/modal/)
 
@@ -17,76 +17,36 @@ $ npm install @deleteagency/modal
 ## Usage
 
 ```js
-import pageLocker from  '@deleteagency/modal';
+import Modal from  '@deleteagency/modal';
 
-pageLocker.lock('modal');
+const modal = Modal.create('<div>I am a modal!</div>');
+modal.open();
 ```
 
 ## Options
 
-### targetElement
+### namespace
 
-Type: `HTMLElement`<br>
-Default: `document.documentElement`
+Type: `String`<br>
+Default: `data-modal`
 
-Defines what element should we apply our lock logic to
-
-### useInlineStyles
-
-Type: `boolean`<br>
-Default: `true`
-
-Use default online styles. If `false` you should defined your styles with `options.lockedClass` and `options.lockedClassIOS`
-
-### lockedClass
-
-Type: `string`<br>
-Default: `is-locked`
-
-### checkIOS
-
-Type: `boolean`<br>
-Default: `true`
-
-### lockedClassIOS
-
-Type: `string`<br>
-Default: `is-locked`
-
-### onLock
-
-Type: `Function`<br>
-Default: `null`
-
-### onUnlock
-
-Type: `Function`<br>
-Default: `null`
+TODO
 
 ## API
 
-### pageLocker.setOptions(options)
+### Modal.create(content, options)
 
-Sets options described in Options section
+Returns new Modal instance
+
+#### content
+
+*Required*<br>
+Type: `HTMLElement|String`
 
 #### options
 
-*Required*<br>
+*Optional*<br>
 Type: `Object`
-
-### pageLocker.lock(retainerId)
-
-#### retainerId
-
-*Required*<br>
-Type: `string|integer`
-
-### pageLocker.unlock(retainerId)
-
-#### retainerId
-
-*Required*<br>
-Type: `string|integer`
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
