@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Modal examples</title>
+    <link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin="anonymous">
+    <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/themes/prism-okaidia.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@deleteagency/live-highlight@0.0.1/build/live-highlight.min.js"></script>
+
+    <script src="build/modal.min.js"></script>
+</head>
+
+<script>
+    LiveHighlight.bootstrap((element, type) => {
+        function getLanguage(type) {
+            switch (type) {
+                case LiveHighlight.TYPE_JAVASCRIPT:
+                    return 'js';
+                case LiveHighlight.TYPE_STYLES:
+                    return 'css';
+                case LiveHighlight.TYPE_HTML:
+                    return 'markup';
+            }
+        }
+
+        element.className = `lang-${getLanguage(type)}`;
+        Prism.highlightElement(element);
+    });
+</script>
+<body>
+<div class="py-4">
+    <div class="container">
+        <div class="mb-5">
+            <h1>Modal examples</h1>
+
+            <p>First of all let's style is-opened class which will be applied to modal root once it's opened</p>
+
+            <style data-live-highlight>
+                .modal.is-opened {
+                    display: block;
+                    background-color: rgba(0, 0, 0, 0.5);
+                }
+            </style>
+        </div>
+
+        <div class="mb-5">
+            <h2>Showing existing modal</h2>
+
+            <p>
+                Let's bind a click to create a modal based on existing element.
+            </p>
+
+            <div data-live-highlight-target="modal"></div>
+
+            <div data-modal id="existing-outer-element" class="modal" tabindex="-1" role="dialog"
+                    data-live-highlight="modal" aria-hidden="true">
+                <div data-modal-wrapper class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="close" data-modal-close aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div data-modal-content class="modal-body">
+                            <div id="existing-inner-element">
+                                <p>Modal body text goes here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="show-outer-element">Show modal</button>
+            <button class="btn btn-primary" id="show-inner-element">Show content</button>
+
+            <script data-live-highlight="modal">
+                const showOuterElementButton = document.getElementById('show-outer-element');
+                const showInnerElementButton = document.getElementById('show-inner-element');
+
+                const outerElementModal = Modal.create(document.getElementById('existing-outer-element'));
+                const innerElementModal = Modal.create(document.getElementById('existing-inner-element'));
+
+                showOuterElementButton.addEventListener('click', () => {
+                    outerElementModal.open();
+                });
+
+                showInnerElementButton.addEventListener('click', () => {
+                    innerElementModal.open();
+                });
+            </script>
+
+            <p class="mt-2">
+                As you can see it doesn't matter if we create a modal based on the very top element of the modal or the content itself:
+                because of data-modal attribute we can go up the tree and apply logic to the proper element.
+                data-modal attribute is a key here and you should always declare it when you modals are already contain modal boilerplate markup.
+            </p>
+        </div>
+
+        <div class="mb-5">
+            <h2>Wrap existing element and show it within modal</h2>
+
+            <p>
+                Also it's possible to simplify modals creation and not to provide boilerplate markup every time for every modal.
+                Instead, you can pass only content of the future modal and it will be wrapped up before first open attempt.
+                The decision about wrapping will be made after searching data-modal element up the tree.
+                If such element isn't found the passed content will be treated as a content of the modal.
+            </p>
+            <p>
+                To customize default modal boilerplate pass your own template as defaultModalTemplate option of modalService.init method.
+                Content will be inserted to data-modal-content node
+            </p>
+            <script>
+                Modal.init({
+                    defaultModalTemplate: (modalOptions) => {
+                        return `<div data-modal class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div data-modal-wrapper class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-modal-close aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div data-modal-content class="modal-body">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                    },
+                });
+            </script>
+
+
+            <div data-live-highlight-target="whole-modal"></div>
+
+            <div id="existing-content-element">
+                <p>Content element</p>
+            </div>
+
+            <button class="btn btn-primary" id="show-content-element">Show modal</button>
+            <script data-live-highlight="whole-modal">
+                const showContentElementButton = document.getElementById('show-content-element');
+
+                const contentElementModal = Modal.create(document.getElementById('existing-content-element'));
+
+                showContentElementButton.addEventListener('click', () => {
+                    contentElementModal.open();
+                });
+            </script>
+
+            <p>
+                If your content of the modal is just a string you don't have to create an element just to pass it to Modal.create().
+                Pass your string to the Modal.create() and it will be wrapped in the modal template and inserted to the DOM.
+            </p>
+
+            <textarea id="custom-content" class="form-control mt-3" rows="3"></textarea>
+            <button class="btn btn-primary mt-3" id="show-text-modal">Show text modal</button>
+
+            <script data-live-highlight="whole-modal">
+                const showTextModal = document.getElementById('show-text-modal');
+                const textarea = document.getElementById('custom-content');
+
+                showTextModal.addEventListener('click', () => {
+                    const textModal = Modal.create(`<div>${textarea.value}</div>`);
+                    textModal.open();
+                });
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>
