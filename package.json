@@ -35,6 +35,6 @@
     "firefox >= 26"
   ],
   "dependencies": {
-    "@deleteagency/dom-helper": "0.0.2"
+    "@deleteagency/dom-helper": "^0.0.2"
   }
 }
