@@ -1,6 +1,6 @@
 {
   "name": "@deleteagency/modal",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -35,6 +35,6 @@
     "firefox >= 26"
   ],
   "dependencies": {
-    "@deleteagency/dom-helper": "^1.0.0"
+    "@deleteagency/dom-helper": "^1.0.2"
   }
 }
