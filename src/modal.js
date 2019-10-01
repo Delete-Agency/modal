@@ -174,13 +174,16 @@ class ModalService {
     }
 
     /**
-     * @param {String|HTMLElement|Function} content
+     * @param {String|HTMLElement} content
      * @param {Object} modalOptions
      * @return {HTMLElement}
      */
     _createModalElement(content, modalOptions) {
-        content = typeof content === 'function' ? content() : content;
         let element = typeof content === 'string' ? createElement(content) : content;
+
+        if (!element) {
+            throw new Error('Content argument of the create method must be either a HTMLElement or a string with valid html markup');
+        }
 
         // if we have already created modal element previously we want to find data-modal (or custom namespace attribute)
         // instead of modal content
