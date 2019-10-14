@@ -252,10 +252,12 @@ class ModalService {
     }
 
     destroy(modal) {
-        modal._onDestroy();
+        // call custom callback first in order to allow accessing of modal root element
         if (this.options.onModalDestroy) {
             this.options.onModalDestroy(modal);
         }
+        // call modal._onDestroy which actually destroys the modal root element
+        modal._onDestroy();
     }
 
     closeOpened() {
