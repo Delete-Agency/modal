@@ -1,4 +1,4 @@
-import { createElement, getParent } from "@deleteagency/dom-helper";
+import { createElement, querySelectorParent } from "@deleteagency/dom-helper";
 
 class Modal {
     constructor(content, options = {}, service) {
@@ -187,7 +187,7 @@ class ModalService {
 
         // if we have already created modal element previously we want to find data-modal (or custom namespace attribute)
         // instead of modal content
-        const actualModal = getParent(element, `[${this.options.namespace}]`);
+        const actualModal = querySelectorParent(element, `[${this.options.namespace}]`, true);
         if (actualModal) {
             element = actualModal;
         } else {
