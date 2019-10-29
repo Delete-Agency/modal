@@ -38,6 +38,6 @@
     "last 2 ios_saf versions"
   ],
   "dependencies": {
-    "@deleteagency/dom-helper": "^2.0.1"
+    "@deleteagency/dom-helper": "^3.0.0-0"
   }
 }
