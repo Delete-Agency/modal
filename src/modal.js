@@ -15,6 +15,8 @@ class Modal {
 
     getDefaultOptions() {
         return {
+            // autoCloseOnClickOutside is also passed from ModalService options
+            // and can be overridden via modal options
             destroyOnClose: false,
             onClose: null,
             onOpen: null
@@ -130,6 +132,7 @@ class ModalService {
             onAfterLastModalClose: null,
             onModalDestroy: null,
             container: null,
+            autoCloseOnClickOutside: true,
             defaultModalTemplate: (modalOptions) => {
                 return `<div data-modal aria-hidden="true">
                             <div data-modal-wrapper>
@@ -155,7 +158,7 @@ class ModalService {
     }
 
     _outerClickHandle(e) {
-        if (this.openedModal) {
+        if (this.openedModal && this.openedModal.options.autoCloseOnClickOutside) {
             if (this.openedModal.element.contains(e.target)) {
                 if (!this.openedModal._getWrapperElement().contains(e.target)) {
                     this.closeOpened();
@@ -170,6 +173,10 @@ class ModalService {
     }
 
     create(content, options) {
+        options = {
+            autoCloseOnClickOutside: this.options.autoCloseOnClickOutside,
+            ...options
+        };
         return new Modal(content, options, this);
     }
 
