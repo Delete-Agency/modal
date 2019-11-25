@@ -31,6 +31,6 @@
     "webpack-cli": "^3.3.6"
   },
   "dependencies": {
-    "@deleteagency/dom-helper": "^3.0.0-1"
+    "@deleteagency/dom-helper": "^3.0.0"
   }
 }
