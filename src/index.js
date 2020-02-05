@@ -1,3 +1,4 @@
-import Modal from './modal';
+import ModalService from './modal';
 
-export { Modal };
+const modalService = new ModalService();
+export { ModalService, modalService };
