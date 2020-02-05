@@ -30,7 +30,7 @@ or you can import class and modify it for your project, and then use
 ```js
 import { ModalService } from '@deleteagency/modal';
 
-class customModalService extend ModalService {
+class CustomModalService extend ModalService {
 	...
 }
 
