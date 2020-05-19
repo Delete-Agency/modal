@@ -16,11 +16,25 @@ $ npm install @deleteagency/modal
 
 ## Usage
 
-```js
-import Modal from  '@deleteagency/modal';
+you can import ready instance
 
-const modal = Modal.create('<div>I am a modal!</div>');
+```js
+import { modalService } from  '@deleteagency/modal';
+
+const modal = modalService.create('<div>I am a modal!</div>');
 modal.open();
+```
+
+or you can import class and modify it for your project, and then use
+
+```js
+import { ModalService } from '@deleteagency/modal';
+
+class CustomModalService extend ModalService {
+	...
+}
+
+const myService = new customModalService();
 ```
 
 ## Options

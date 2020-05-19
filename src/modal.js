@@ -274,5 +274,4 @@ class ModalService {
     }
 }
 
-const instance = new ModalService();
-export default instance;
+export default ModalService;
